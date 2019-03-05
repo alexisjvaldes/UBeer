@@ -18,6 +18,7 @@ from django.urls import path
 from UBeer import views
 
 urlpatterns = [
-    path('', views.home),
+    path('login/', views.login),
+
     path('admin/', admin.site.urls),
 ]
