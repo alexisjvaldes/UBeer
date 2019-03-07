@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
+from UBeer.models import *
 
 
 def login(request):
@@ -16,7 +17,7 @@ def login(request):
         # Query the database for users with the provided username / password.
         # filter returns a list of all matching users, first gets the first one from the list.
         # If no user exists, user will contain 'None'.
-        user = User.objects.filter(username=username, password=password).first()
+        user = Users.objects.filter(username=username, password=password).first()
 
         # If a user exists and is valid, we redirect them to the appropriate page based on
         # their role (rider or establishment).  Otherwise, add an error to the page.
