@@ -22,6 +22,10 @@ def login(request):
         # If a user exists and is valid, we redirect them to the appropriate page based on
         # their role (rider or establishment).  Otherwise, add an error to the page.
         if user and user.is_valid(username, password):
+
+            # Actually logs in the user
+            request.session['user_id'] = user.id
+
             if user.is_rider():
                 HttpResponseRedirect('/rider_home.html')
             else:

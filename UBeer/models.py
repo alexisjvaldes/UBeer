@@ -12,6 +12,18 @@ class Users(models.Model):
     email = models.EmailField()
     role = models.CharField(choices=ROLE_CHOICES, max_length=1)
 
+    class Meta(object):
+        unique_together = ('username',)
+
+    def is_valid(self, _username, _password):
+        return self.username == _username and self.password == _password
+
+    def is_rider(self):
+        return self.role == 'R'
+
+    def is_establishment(self):
+        return self.role == 'E'
+
 
 class Establishments(models.Model):
     user = models.ForeignKey(Users, on_delete=None)
