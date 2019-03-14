@@ -1,12 +1,12 @@
-{% load static %}
+{%  load static %}
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
     <meta charset="UTF-8">
     <title>Ubeer</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'custom/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{%  static 'bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{%  static 'custom/home.css' %}">
 </head>
 <body class="login">
     <div class="container">
@@ -40,10 +40,10 @@
         </div>
 
         <div class="row loginLink">
-            <div class="col">Link to <a href="/signup.html">Signup</a></div>
+            <div class="col">Link to <a href="{%  url 'UBeer:signup.html' %}">Signup</a></div>
         </div>
     </div>
 
-<script src="{% static 'bootstrap/bootstrap.js' %}"></script>
-</body>
-</html>
+<script src="{%  static 'bootstrap/bootstrap.js' %}"></script>
+
+</body></html>
