@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth import authenticate, login as login_user
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User, Group
 
 
 def login(request):
@@ -14,7 +15,6 @@ def login(request):
         data = request.POST
         username = data.get('username', '')
         password = data.get('password', '')
-
         # Query the database for users with the provided username / password.
         # filter returns a list of all matching users, first gets the first one from the list.
         # If no user exists, user will contain 'None'.
@@ -44,11 +44,26 @@ def signup(request):
     }
 
     if request.method == 'POST':
-        pass
-        # data = request.POST
-        # username = data.get('username', '')
-        # password = data.get('password', '')
-
+        data = request.POST
+        username = data.get('username', '')
+        firstName = data.get('firstName', '')
+        lastName = data.get('lastName', '')
+        password = data.get('password', '')
+        passwordConf = data.get('confirmPassword', '')
+        email = data.get('email', '')
+        userGroup = data.get('group', '')
+        user = User.objects.create_user(username, email, password)
+        user.last_name = lastName
+        user.first_name = firstName
+        user.email = email
+        user.save()
+        if userGroup == '1':
+            group = Group.objects.get(name='UBeer_riders')
+            group.user_set.add(user)
+        else:
+            group = Group.objects.get(name='UBeer_Establishment')
+            group.user_set.add(user)
+        return HttpResponseRedirect('/login')
     return render(request, "signup.html", context)
 
 

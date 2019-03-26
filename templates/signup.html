@@ -12,26 +12,40 @@
     Signup
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
         <div class="form-group">
             <label for="loginUser">Username</label>
             <input type="text" class="form-control" id="loginUser" name="username">
+        </div>
+        <div class="form-group">
+            <label for="loginPassword">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName">
+        </div>
+        <div class="form-group">
+            <label for="loginPassword">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName">
         </div>
         <div class="form-group">
             <label for="loginPassword">Password</label>
             <input type="password" class="form-control" id="loginPassword" name="password">
         </div>
         <div class="form-group">
-            <label for="loginPassword">Password</label>
+            <label for="loginPassword">Confirm Password</label>
             <input type="password" class="form-control" id="loginPassword" name="confirmPassword">
         </div>
         <div class="form-group">
-            <label for="loginPassword">Password</label>
-            <input type="password" class="form-control" id="loginPassword" name="email">
+            <label for="loginPassword">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect2">Group</label>
+            <select multiple class="form-control" id="selectGroup" name="group">
+              <option value="1">rider</option>
+              <option value="2">Establishment</option>
+            </select>
         </div>
         <div class="row loginButton">
             <div class="col">
-                <button type="submit" class="btn btn-primary btn-lg loginButton">Log in</button>
+                <button type="submit" class="btn btn-primary btn-lg loginButton">create user</button>
             </div>
         </div>
     </form>>
