@@ -26,11 +26,11 @@
                 {% csrf_token %}
                 {{ form.as_p }}
                 <div class="form-group">
-                    <label for="loginUser">Username</label>
+                    <label for="loginUser" class="loginUserText">Username</label>
                     <input type="text" class="form-control" id="loginUser" name="username">
                 </div>
                 <div class="form-group">
-                    <label for="loginPassword">Password</label>
+                    <label for="loginPassword" class="loginPasswordText">Password</label>
                     <input type="password" class="form-control" id="loginPassword" name="password">
                 </div>
                 <div class="row loginButton">
