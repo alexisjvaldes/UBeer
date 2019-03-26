@@ -8,6 +8,7 @@
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="{%  static 'bootstrap/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{%  static 'custom/home.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
 </head>
 <body class="login">
     <div class="container">
@@ -25,11 +26,11 @@
             <form method = "post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="loginUser">Username</label>
+                    <label for="loginUser" class="loginUserText">Username</label>
                     <input type="text" class="form-control" id="loginUser" name="username">
                 </div>
                 <div class="form-group">
-                    <label for="loginPassword">Password</label>
+                    <label for="loginPassword" class="loginPasswordText">Password</label>
                     <input type="password" class="form-control" id="loginPassword" name="password">
                 </div>
                 <div class="row loginButton">
