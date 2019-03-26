@@ -1,8 +1,9 @@
 from django.shortcuts import render, HttpResponseRedirect
 from UBeer.models import *
+from django.contrib.auth.models import User, Group
+from django.contrib.auth import authenticate, login
 
-
-def login(request):
+def log(request):
     context = {
         'data': {},
         'errors': [],
@@ -13,31 +14,39 @@ def login(request):
         data = request.POST
         username = data.get('username', '')
         password = data.get('password', '')
-
         # Query the database for users with the provided username / password.
         # filter returns a list of all matching users, first gets the first one from the list.
         # If no user exists, user will contain 'None'.
-        user = Users.objects.filter(username=username, password=password).first()
-
-        # If a user exists and is valid, we redirect them to the appropriate page based on
-        # their role (rider or establishment).  Otherwise, add an error to the page.
-        if user and user.is_valid(username, password):
-
-            # Actually logs in the user
-            request.session['user_id'] = user.id
-
-            if user.is_rider():
-                HttpResponseRedirect('/rider_home.html')
-            else:
-                HttpResponseRedirect('/establishment_home.html')
+        # user = Users.objects.filter(username=username, password=password).first()
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            if user.groups.filter(name='UBeer_riders').exists():
+                return HttpResponseRedirect('/riderHome')
+            if user.groups.filter(name='UBeer_Establishment').exists():
+                return HttpResponseRedirect('/establishmentHome')
         else:
             context['errors'].append("The username or password is incorrect.")
-
+        # If a user exists and is valid, we redirect them to the appropriate page based on
+        # their role (rider or establishment).  Otherwise, add an error to the page.
+        # if user and user.is_valid(username, password):
     return render(request, "login.html", context)
 
 
-def sign_up(request):
+def signup(request):
+    context = {
+        'data': {},
+        'errors': [],
+    }
     if request.method == 'POST':
         data = request.POST
         username = data.get('username', '')
         password = data.get('password', '')
+    return render(request, "signup.html", context)
+
+def riderHome(request):
+    context = {
+        'data': {},
+        'errors': [],
+    }
+    return render(request, "riderHome.html", context)
