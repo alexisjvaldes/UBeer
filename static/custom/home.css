@@ -1,6 +1,6 @@
 .login {
     background-color: lightblue;
-    margin-top: 150px;
+    margin-top: 75px;
 }
 
 .loginLogo {
@@ -8,12 +8,15 @@
     border-width: 5px;
     border-radius: 50%;
     box-shadow: 10px 10px 30px;
+    max-width: 100%;
+    height: 45vw;
+    width: 45vw;
 }
 
 .loginName {
     margin-bottom: 80px;
     text-align: center;
-    font-size: 120px;
+    font-size: 60px;
     font-family: cursive;
     font-style: italic;
 }
@@ -29,12 +32,12 @@
 .loginButton {
     margin-top: 40px;
     margin-bottom: 10px;
-    font-size: 80px;
+    font-size: 40px;
     text-align: center;
     border-color: black;
     border-width: 5px;
     border-radius: 50px;
-    padding: 35px 60px 60px 60px;
+    /*padding: 35px 60px 60px 60px;*/
 }
 
 .loginLink {
@@ -43,7 +46,7 @@
 }
 
 .form-group {
-    font-size: 65px;
+    font-size: 30px;
 }
 
 .form-control {
@@ -55,9 +58,30 @@
     font-size: 50px;
 }
 
-/*Medium devices (tablets)*/
-@media screen and (min-width: 768px) and (max-width: 991px) {
+/*Small (landscape phones)*/
+@media screen and (min-width: 576px) {
+    .loginName {
+        color: green;
+    }
+}
+
+/*Medium (tablets)*/
+@media screen and (min-width: 768px) {
     .loginName {
         color: red;
+    }
+}
+
+/*Large (desktops)*/
+@media screen and (min-width: 992px) {
+    .loginName {
+        color: white;
+    }
+}
+
+/*Extra Large (large desktops*/
+@media screen and (min-width: 1200px) {
+    .loginName {
+        color: rebeccapurple;
     }
 }
