@@ -62,6 +62,14 @@
     font-size: 20px;
 }
 
+.navbar-profile {
+    color: black;
+}
+
+.navbar-signout {
+    color: black;
+}
+
 /*Small (landscape phones)*/
 @media screen and (min-width: 576px) {
     .loginName {

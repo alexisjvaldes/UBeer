@@ -2,5 +2,19 @@
 {% load static %}
 
 {% block content %}
-    Rider Home
+<div class="container">
+    <nav class="navbar sticky-top navbar-light bg-light">
+        <a class="navbar-profile" href="#">Profile</a>
+        <a class="navbar-signout" href="#">Sign Out</a>
+    </nav>
+    <div>
+        <ul class="list-group">
+            {% for establishment in establishments %}
+                <li class="list-group-item">
+                    {{ establishment.name }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock %}

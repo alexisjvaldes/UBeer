@@ -82,6 +82,7 @@ def rider_home(request):
     context = {
         'data': {},
         'errors': [],
+        'establishments': [{'name': 'establishment 1'}, {'name': 'establishment 2'}, {'name': 'establishment 3'}],
     }
 
     return render(request, "rider/rider_home.html", context)
