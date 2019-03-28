@@ -25,7 +25,7 @@ SECRET_KEY = 'pmt&%qs2abi_kc$57-*h-qmhpvh3rpylqq)4w(be2rv*vdl&$j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -133,4 +133,3 @@ STATICFILES_FINDERS = [
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
-
