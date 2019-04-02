@@ -46,24 +46,36 @@ def signup(request):
     if request.method == 'POST':
         data = request.POST
         username = data.get('username', '')
-        firstName = data.get('firstName', '')
-        lastName = data.get('lastName', '')
+        first_name = data.get('firstName', '')
+        last_name = data.get('lastName', '')
         password = data.get('password', '')
-        passwordConf = data.get('confirmPassword', '')
+        password_conf = data.get('confirmPassword', '')
         email = data.get('email', '')
-        userGroup = data.get('group', '')
+        user_group = data.get('group', '')
+
+        if password != password_conf:
+            context['errors'].append("Passwords do not match. Please try again.")
+            return render(request, "signup.html", context)
+
+        if User.objects.filter(username=username).exists():
+            context['errors'].append("Username is already taken.")
+            return render(request, "signup.html", context)
+
         user = User.objects.create_user(username, email, password)
-        user.last_name = lastName
-        user.first_name = firstName
+        user.last_name = last_name
+        user.first_name = first_name
         user.email = email
         user.save()
-        if userGroup == '1':
+
+        if user_group == '1':
             group = Group.objects.get(name='UBeer_riders')
             group.user_set.add(user)
         else:
             group = Group.objects.get(name='UBeer_Establishment')
             group.user_set.add(user)
+
         return HttpResponseRedirect('/login')
+
     return render(request, "signup.html", context)
 
 
