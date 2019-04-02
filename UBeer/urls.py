@@ -20,6 +20,8 @@ from UBeer import views
 urlpatterns = [
     path('login/', views.login),
     path('signup/', views.signup),
-    path('rider_home/', views.rider_home),
+    path('riderHome/', views.rider_home),
+    path('establishmentHome/', views.establishment_home),
+    path('logout/', views.logout_view),
     path('admin/', admin.site.urls),
 ]
