@@ -14,12 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from UBeer import views
 
 urlpatterns = [
-    path('login/', views.login),
+    path('login/', views.log),
     path('signup/', views.signup),
-    path('rider_home/', views.rider_home),
+    path('riderHome/', views.riderHome),
+    path('establishmentHome/', views.establishmentHome),
+    path('logout/', views.logout_view),
     path('admin/', admin.site.urls),
 ]
