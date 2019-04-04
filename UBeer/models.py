@@ -1,61 +1,53 @@
 from django.db import models
-
-
-class Users(models.Model):
-    ROLE_CHOICES = (
-        ('R', 'Rider'),
-        ('E', 'Establishment')
-    )
-
-    username = models.CharField(max_length=30)
-    password = models.CharField(max_length=30)
-    email = models.EmailField()
-    role = models.CharField(choices=ROLE_CHOICES, max_length=1)
-
-    class Meta(object):
-        unique_together = ('username',)
-
-    def is_valid(self, _username, _password):
-        return self.username == _username and self.password == _password
-
-    def is_rider(self):
-        return self.role == 'R'
-
-    def is_establishment(self):
-        return self.role == 'E'
+from django.contrib.auth.models import User
 
 
 class Establishments(models.Model):
-    user = models.ForeignKey(Users, on_delete=None)
+    user = models.ForeignKey(User, on_delete=None)
     latitude = models.IntegerField()
     longitude = models.IntegerField()
     address = models.CharField(max_length=128)
-    zipCode = models.CharField(max_length=5)
+    zip_code = models.CharField(max_length=5)
     city = models.CharField(max_length=25)
     state = models.CharField(max_length=2)
+    minimum_tab = models.FloatField()
 
     def save(self, *args, **kwargs):
         try:
-            int(self.zipCode)
+            int(self.zip_code)
         except ValueError:
-            raise Exception("Invalid Zip Code")
+            raise Exception("Invalid value for zip_code")
+
+        if self.minimum_tab < 0:
+            raise Exception("Invalid value for minimum_tab")
 
         super(Establishments).save(self, *args, *kwargs)
 
-    
-class Menu(models.Model):
+
+class Riders(models.Model):
+    user = models.ForeignKey(User, on_delete=None)
+
+
+class Trips(models.Model):
+    RIDE_CHOICES = (
+        ("R", "Reserved"),  # Tab has been reserved
+        ("A", "Arrived"),   # Rider has arrived
+        ("C", "Complete")   # Trip is complete
+    )
+
+    rider = models.ForeignKey(Riders, on_delete=None)
     establishment = models.ForeignKey(Establishments, on_delete=None)
-    name = models.CharField(max_length=128)
-    price = models.FloatField()
+    tab = models.FloatField()
+    status = models.CharField(choices=RIDE_CHOICES, max_length=4)
+
+    def save(self, *args, **kwargs):
+        if self.tab < self.establishment.minimum_tab:
+            raise Exception("Tab must be greater than or equal to establishment.minimum_tab")
+
+        super(Establishments).save(self, *args, *kwargs)
 
 
 class Transactions(models.Model):
-    user = models.ForeignKey(Users, on_delete=None)
+    user = models.ForeignKey(User, on_delete=None)
     total = models.FloatField()
     date = models.DateTimeField()
-    establishment = models.ForeignKey(Establishments, on_delete=None)
-
-
-class TransactionsMenu(models.Model):
-    transaction = models.ForeignKey(Transactions, on_delete=None)
-    menuID = models.ForeignKey(Menu, on_delete=None)
