@@ -1,5 +1,8 @@
-.login {
+body {
     background-color: lightblue;
+}
+
+.login {
     margin-top: 30px;
 }
 
