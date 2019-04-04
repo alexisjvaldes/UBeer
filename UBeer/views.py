@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login as login_user, logout
+from UBeer.models import Trips
 
 
 def login(request):
@@ -23,7 +24,7 @@ def login(request):
 
                 if user.groups.filter(name='UBeer_riders').exists():
                     return HttpResponseRedirect('/riderHome')
-                if user.groups.filter(name='UBeer_Establishment').exists():
+                if user.groups.filter(name='UBeer_establishments').exists():
                     return HttpResponseRedirect('/establishmentHome')
         else:
             context['errors'].append("The username or password is incorrect.")
@@ -62,11 +63,11 @@ def signup(request):
         user.save()
 
         if user_group == '1':
-            group = Group.objects.get(name='UBeer_riders')
-            group.user_set.add(user)
+            group, created = Group.objects.get_or_create(name='UBeer_riders')
+            user.groups.add(group)
         else:
-            group = Group.objects.get(name='UBeer_Establishment')
-            group.user_set.add(user)
+            group, created = Group.objects.get_or_create(name='UBeer_establishments')
+            user.groups.add(group)
 
         return HttpResponseRedirect('/login')
 
@@ -92,7 +93,9 @@ def establishment_home(request):
     elif user.groups.filter(name='UBeer_riders').exists():
         return HttpResponseRedirect('/riderHome')
 
-    return render(request, "establishment/establishment_home.html", {})
+    trips = Trips.objects.filter(establishment__user=user)
+
+    return render(request, "establishment/establishment_home.html", {'trips': trips})
 
 
 def logout_view(request):
