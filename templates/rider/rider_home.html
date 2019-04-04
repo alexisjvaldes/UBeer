@@ -2,5 +2,48 @@
 {% load static %}
 
 {% block content %}
-    Rider Home
+<div class="container">
+    <nav class="navbar sticky-top navbar-light bg-light">
+        <a class="navbar-profile" href="#">Profile</a>
+        <a class="navbar-signout" href="#">Sign Out</a>
+    </nav>
+{#    <div>#}
+{#        <ul class="list-group">#}
+{#            {% for establishment in establishments %}#}
+{#                <li class="list-group-item">#}
+{#                    {{ establishment.name }}#}
+{#                </li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#    </div>#}
+
+    <div id="accordion">
+        {% for establishment in establishments %}
+            <div class="card">
+                <div class="card-header" id="{{ establishment.name }}">
+                    <div class="card-columns">
+                        <img src="{{ establishment.img }}" , alt="">
+                    </div>
+                    <div class="card-columns">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#{{ establishment.id }}"
+                                    aria-expanded="true" aria-controls="{{ establishment.id }}">
+                                {{ establishment.name }}
+                            </button>
+                        </h5>
+                    </div>
+                </div>
+
+
+
+{#            <div id="{{ establishment.id }}" class="collapse" aria-labelledby="{{ establishment.name }}" data-parent="#accordion">#}
+{#                <div class="card-body">#}
+{#                    {{ establishment.info }}#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
 {% endblock %}
