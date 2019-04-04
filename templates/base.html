@@ -6,13 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>UBeer</title>
-    <link rel="stylesheet" type="text/css" href="{%  static 'bootstrap/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{%  static 'custom/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'custom/home.css' %}">
 
     {% block extrahead %}
     {% endblock %}
 </head>
-<body class="login">
+<body>
     <div id="base_container">
         {% block content %}
         {% endblock %}
