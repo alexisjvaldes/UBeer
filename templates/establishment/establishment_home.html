@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extrahead %}
+    <link rel="stylesheet" type="text/css" href="{% static 'custom/establishment/establishment_home.css' %}">
+{% endblock %}
+
 {% block content %}
     <h2 id="header">Clients</h2>
 
@@ -9,9 +13,9 @@
         {% for t in trips %}
             <li class="trip row">
                 <div>
-                    <span>Name: {{ t.rider.user.first_name }}&nbsp;{{ t.rider.user.last_name }}</span>
-                    <span>Tab: ${{ t.tab }}</span>
-                    <span>Status: {{ t.status }}</span>
+                    <span>Name:&nbsp;{{ t.rider.user.first_name }}&nbsp;{{ t.rider.user.last_name }}</span>
+                    <span>Tab:&nbsp;${{ t.tab }}</span>
+                    <span>Status:&nbsp;{{ t.status }}</span>
                 </div>
             </li>
         {% endfor %}
