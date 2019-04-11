@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login as login_user, logout
-from UBeer.models import Trips
+from UBeer.models import Trips, Establishments, Riders
 
 
 def login(request):
@@ -96,6 +96,37 @@ def rider_home(request):
         return HttpResponseRedirect('/establishmentHome')
 
     return render(request, "rider/rider_home.html", context)
+
+
+def checkout(request):
+    context = {
+        'data': {},
+        'errors': [],
+    }
+
+    # establishments = Establishments.objects.all()
+    # context['establishments'] = establishments
+
+    user = request.user
+
+    if not user.is_authenticated:
+        return HttpResponseRedirect('/login')
+
+    return render(request, "rider/checkout.html", context)
+
+
+def confirm(request):
+    context = {
+        'data': {},
+        'errors': [],
+    }
+
+    user = request.user
+
+    if not user.is_authenticated:
+        return HttpResponseRedirect('/login')
+
+    return render(request, "rider/confirm.html", context)
 
 
 def establishment_home(request):
