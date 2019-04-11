@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login as login_user, logout
-from UBeer.models import Trips
+from UBeer.models import Trips, Riders, Establishments
 
 
 def login(request):
@@ -71,9 +71,13 @@ def signup(request):
         if user_group == '1':
             group = Group.objects.get(name='rider')
             user.groups.add(group)
+            Riders.objects.create(user=user)
         else:
             group = Group.objects.get(name='establishment')
             user.groups.add(group)
+            Establishments.objects.create(
+                user=user,
+            )
 
         return HttpResponseRedirect('/login')
 
