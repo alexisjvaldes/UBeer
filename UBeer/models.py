@@ -21,7 +21,7 @@ class Establishments(models.Model):
         if self.minimum_tab < 0:
             raise Exception("Invalid value for minimum_tab")
 
-        super(Establishments).save(self, *args, *kwargs)
+        super(Establishments, self).save(self, *args, *kwargs)
 
 
 class Riders(models.Model):
@@ -44,7 +44,7 @@ class Trips(models.Model):
         if self.tab < self.establishment.minimum_tab:
             raise Exception("Tab must be greater than or equal to establishment.minimum_tab")
 
-        super(Establishments).save(self, *args, *kwargs)
+        super(Trips, self).save(self, *args, *kwargs)
 
 
 class Transactions(models.Model):

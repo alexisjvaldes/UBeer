@@ -10,6 +10,9 @@ def login(request):
         'errors': [],
     }
 
+    Group .objects.get_or_create(name='rider')
+    Group.objects.get_or_create(name='establishment')
+
     if request.method == 'POST':
         data = request.POST
         username = data.get('username', '')
@@ -22,9 +25,9 @@ def login(request):
                 request.session.set_expiry(86400)
                 login_user(request, user)
 
-                if user.groups.filter(name='UBeer_riders').exists():
+                if user.groups.filter(name='rider').exists():
                     return HttpResponseRedirect('/riderHome')
-                if user.groups.filter(name='UBeer_establishments').exists():
+                if user.groups.filter(name='establishment').exists():
                     return HttpResponseRedirect('/establishmentHome')
         else:
             context['errors'].append("The username or password is incorrect.")
@@ -37,6 +40,9 @@ def signup(request):
         'data': {},
         'errors': [],
     }
+
+    Group .objects.get_or_create(name='rider')
+    Group.objects.get_or_create(name='establishment')
 
     if request.method == 'POST':
         data = request.POST
@@ -63,10 +69,10 @@ def signup(request):
         user.save()
 
         if user_group == '1':
-            group, created = Group.objects.get_or_create(name='UBeer_riders')
+            group = Group.objects.get(name='rider')
             user.groups.add(group)
         else:
-            group, created = Group.objects.get_or_create(name='UBeer_establishments')
+            group = Group.objects.get(name='establishment')
             user.groups.add(group)
 
         return HttpResponseRedirect('/login')
@@ -92,7 +98,7 @@ def rider_home(request):
 
     if not user.is_authenticated:
         return HttpResponseRedirect('/login')
-    elif user.groups.filter(name='UBeer_Establishment').exists():
+    elif user.groups.filter(name='establishment').exists():
         return HttpResponseRedirect('/establishmentHome')
 
     return render(request, "rider/rider_home.html", context)
@@ -134,7 +140,7 @@ def establishment_home(request):
 
     if not user.is_authenticated:
         return HttpResponseRedirect('/login')
-    elif user.groups.filter(name='UBeer_riders').exists():
+    elif user.groups.filter(name='rider').exists():
         return HttpResponseRedirect('/riderHome')
 
     trips = Trips.objects.filter(establishment__user=user)
