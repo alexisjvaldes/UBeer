@@ -7,41 +7,41 @@
         <a class="navbar-profile" href="#">Profile</a>
         <a class="navbar-signout" href="#">Sign Out</a>
     </nav>
-{#    <div>#}
-{#        <ul class="list-group">#}
-{#            {% for establishment in establishments %}#}
-{#                <li class="list-group-item">#}
-{#                    {{ establishment.name }}#}
-{#                </li>#}
-{#            {% endfor %}#}
-{#        </ul>#}
-{#    </div>#}
 
-    <div id="accordion">
+    <div class="accordion" id="searchAccordion">
         {% for establishment in establishments %}
-            <div class="card">
-                <div class="card-header" id="{{ establishment.name }}">
+            <div class="card" data-toggle data-parent="#searchAccordion" data-target="#{{ establishment.id }}" aria-expanded="false" aria-controls="{{ establishment.id }}">
+                <div class="card-header" id="{{ establishment.name }}" data-toggle="collapse" data-target="#{{ establishment.id }}">
                     <div class="card-columns">
-                        <img src="{{ establishment.img }}" , alt="">
-                    </div>
-                    <div class="card-columns">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#{{ establishment.id }}"
-                                    aria-expanded="true" aria-controls="{{ establishment.id }}">
-                                {{ establishment.name }}
-                            </button>
-                        </h5>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <img src="{{ establishment.img }}" alt="" class="riderHomeImg">
+                                </div>
+                                <div class="col-auto cardMiddle">
+                                    {{ establishment.name }}<br>
+                                    {{ establishment.rating }}<br>
+                                    {{ establishment.info }}
+                                </div>
+                                <div class="col-auto cardRight">
+                                    {{ establishment.rideTime }}<br>
+                                    {{ establishment.minTab }}
+                                </div>
+                            </div>
                     </div>
                 </div>
 
-
-
-{#            <div id="{{ establishment.id }}" class="collapse" aria-labelledby="{{ establishment.name }}" data-parent="#accordion">#}
-{#                <div class="card-body">#}
-{#                    {{ establishment.info }}#}
-{#                </div>#}
-{#            </div>#}
-        </div>
+                <div id="{{ establishment.id }}" class="collapse" aria-labelledby="{{ establishment.name }}"
+                     data-parent="#searchAccordion">
+                    <div class="card card-body" aria-labelledby="{{ establishment.name }}">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control tabInput" id="tab">
+                                <button type="submit" class="btn btn-primary float-right tabSubmit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
     </div>
 
