@@ -4,13 +4,13 @@ from django.contrib.auth.models import User
 
 class Establishments(models.Model):
     user = models.ForeignKey(User, on_delete=None)
-    latitude = models.IntegerField()
-    longitude = models.IntegerField()
     address = models.CharField(max_length=128)
     zip_code = models.CharField(max_length=5)
     city = models.CharField(max_length=25)
     state = models.CharField(max_length=2)
     minimum_tab = models.FloatField()
+    image = models.ImageField()
+    name = models.CharField(max_length=255)
 
     def save(self, *args, **kwargs):
         try:

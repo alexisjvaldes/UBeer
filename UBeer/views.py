@@ -41,7 +41,7 @@ def signup(request):
         'errors': [],
     }
 
-    Group .objects.get_or_create(name='rider')
+    Group.objects.get_or_create(name='rider')
     Group.objects.get_or_create(name='establishment')
 
     if request.method == 'POST':
@@ -52,7 +52,6 @@ def signup(request):
         password = data.get('password', '')
         password_conf = data.get('confirmPassword', '')
         email = data.get('email', '')
-        user_group = data.get('group', '')
 
         if password != password_conf:
             context['errors'].append("Passwords do not match. Please try again.")
@@ -68,16 +67,9 @@ def signup(request):
         user.email = email
         user.save()
 
-        if user_group == '1':
-            group = Group.objects.get(name='rider')
-            user.groups.add(group)
-            Riders.objects.create(user=user)
-        else:
-            group = Group.objects.get(name='establishment')
-            user.groups.add(group)
-            Establishments.objects.create(
-                user=user,
-            )
+        group = Group.objects.get(name='rider')
+        user.groups.add(group)
+        Riders.objects.create(user=user)
 
         return HttpResponseRedirect('/login')
 
