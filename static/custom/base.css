@@ -73,6 +73,22 @@ body {
     color: black;
 }
 
+.riderHomeImg {
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+
+.tabInput {
+    width: 68%;
+    display: inline;
+}
+
+.tabSubmit {
+    margin-top: 7px;
+    font-size: 17px;
+}
+
 /*Small (landscape phones)*/
 @media screen and (min-width: 576px) {
     .loginName {
