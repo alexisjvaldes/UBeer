@@ -1,8 +1,41 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, render_to_response
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login as login_user, logout
 from UBeer.models import Trips
+from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from paypal.standard.forms import PayPalPaymentsForm
 
+@csrf_exempt
+def payment_done(request):
+    # What to do after a successful payment
+    return render(request, 'payment/done.html')
+
+
+@csrf_exempt
+def payment_canceled(request):
+    # What to do after a unsuccessful payment
+    return render(request, 'payment/canceled.html')
+
+def payment_process(request):
+    # Host of the web page, need if we want to save transactions on DB
+    HOST = "6c4d5445.ngrok.io"
+    args = {}
+    # What you want the button to do.
+    paypal_dict = {
+        "business": "false.namebad-facilitator@gmail.com",
+        # The total amount to charge the user
+        "amount": "10.00",
+        # Name of the product, this will appear on the invoice
+        "item_name": "name of the item",
+        "notify_url": 'http://{}{}'.format(HOST, reverse('paypal-ipn')),
+        "return": 'http://{}{}'.format(HOST, reverse('done')),
+        "cancel_return": 'http://{}{}'.format(HOST, reverse('canceled')),
+    }
+    # Create the instance.
+    form = PayPalPaymentsForm(initial=paypal_dict)
+    args['form'] = form
+    return render_to_response("payment/payment.html", args)
 
 def login(request):
     context = {
