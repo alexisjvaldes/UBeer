@@ -137,6 +137,37 @@ def rider_home(request):
     return render(request, "rider/rider_home.html", context)
 
 
+def checkout(request):
+    context = {
+        'data': {},
+        'errors': [],
+    }
+
+    # establishments = Establishments.objects.all()
+    # context['establishments'] = establishments
+
+    user = request.user
+
+    if not user.is_authenticated:
+        return HttpResponseRedirect('/login')
+
+    return render(request, "rider/checkout.html", context)
+
+
+def confirm(request):
+    context = {
+        'data': {},
+        'errors': [],
+    }
+
+    user = request.user
+
+    if not user.is_authenticated:
+        return HttpResponseRedirect('/login')
+
+    return render(request, "rider/confirm.html", context)
+
+
 def establishment_home(request):
     user = request.user
 
