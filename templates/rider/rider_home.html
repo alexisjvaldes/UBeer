@@ -33,10 +33,11 @@
                 <div id="{{ establishment.id }}" class="collapse" aria-labelledby="{{ establishment.name }}"
                      data-parent="#searchAccordion">
                     <div class="card card-body" aria-labelledby="{{ establishment.name }}">
-                        <form>
+                        <form method="post">
+                            {% csrf_token %}
                             <div class="form-group">
-                                <input type="text" class="form-control tabInput" id="tab">
-                                <button type="button" class="btn btn-primary float-right tabSubmit" onclick="location.href='../checkout'">Submit</button>
+                                <input name="amount" type="text" class="form-control tabInput" id="tab">
+                                <button type="submit" class="btn btn-primary float-right tabSubmit" >Submit</button>
                             </div>
                         </form>
                     </div>
