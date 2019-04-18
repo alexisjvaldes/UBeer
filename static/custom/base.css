@@ -74,9 +74,12 @@ body {
 }
 
 .riderHomeImg {
-    max-width: 100%;
-    height: auto;
-    width: auto;
+    height: 28vw;
+    width: 28vw;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    margin-top: 10px;
 }
 
 .tabInput {
@@ -87,6 +90,34 @@ body {
 .tabSubmit {
     margin-top: 7px;
     font-size: 17px;
+}
+
+.establishmentName {
+    font-family: 'Major Mono Display', monospace;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.card-body {
+    background-color: #e1e1e1;
+}
+
+.cardMiddle {
+    /*font-family: 'Lato', sans-serif;*/
+    font-family: 'Raleway', sans-serif;
+}
+
+.card-header {
+    background-color: white;
+}
+
+.riderContainer {
+    background-color: #003f5b;
+}
+
+.btn-primary {
+    background-color: #0ad098;
+    border-color: #0ad098;
 }
 
 /*Small (landscape phones)*/

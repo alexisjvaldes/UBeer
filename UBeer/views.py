@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login as login_user, logout
-from UBeer.models import Trips
+from UBeer.models import Trips, Establishments, Riders
 
 
 def login(request):
@@ -85,12 +85,14 @@ def rider_home(request):
         'data': {},
         'errors': [],
         'establishments': [
-            {'name': 'establishment 1', 'id': 'a', 'img': 'http://lorempixel.com/79/79', 'info': 'info 1', 'rating': 8,
+            {'name': 'smoking dog pub', 'id': 'a', 'img': 'https://media-cdn.tripadvisor.com/media/photo-s/02/28/1e/1c/outside-bar.jpg', 'info': 'Cheap and great', 'rating': 8,
              'rideTime': 5, 'minTab': 15},
-            {'name': 'establishment 2', 'id': 'b', 'img': 'http://lorempixel.com/80/80', 'info': 'info 2', 'rating': 4.5,
+            {'name': 'bar italia', 'id': 'c', 'img': 'https://coolyourjetsiv.files.wordpress.com/2011/11/bar-italia-outside.jpg', 'info': 'Italian bar', 'rating': 11,
+             'rideTime': 12, 'minTab': 30},
+            {'name': 'the pumphouse', 'id': 'd', 'img': 'https://www.rumshopryan.com/wp-content/uploads/2011/02/Pumphouse-outside-night.jpg', 'info': 'Rustic bar and grille', 'rating': 2,
+             'rideTime': 3.5, 'minTab': 10},
+            {'name': 'manzoni', 'id': 'b', 'img': 'https://media-cdn.tripadvisor.com/media/photo-s/06/b3/b1/15/outside-view.jpg', 'info': 'Manzoni', 'rating': 4.5,
              'rideTime': 9, 'minTab': 20},
-            {'name': 'establishment 3', 'id': 'c', 'img': 'http://lorempixel.com/81/81', 'info': 'info 3', 'rating': 11,
-             'rideTime': 12, 'minTab': 30}
         ],
     }
 
@@ -102,6 +104,37 @@ def rider_home(request):
         return HttpResponseRedirect('/establishmentHome')
 
     return render(request, "rider/rider_home.html", context)
+
+
+def checkout(request):
+    context = {
+        'data': {},
+        'errors': [],
+    }
+
+    # establishments = Establishments.objects.all()
+    # context['establishments'] = establishments
+
+    user = request.user
+
+    if not user.is_authenticated:
+        return HttpResponseRedirect('/login')
+
+    return render(request, "rider/checkout.html", context)
+
+
+def confirm(request):
+    context = {
+        'data': {},
+        'errors': [],
+    }
+
+    user = request.user
+
+    if not user.is_authenticated:
+        return HttpResponseRedirect('/login')
+
+    return render(request, "rider/confirm.html", context)
 
 
 def establishment_home(request):
