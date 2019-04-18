@@ -40,7 +40,9 @@
                         <form method="post">
                             {% csrf_token %}
                             <div class="form-group">
-                                <input name="amount" type="text" class="form-control tabInput" id="tab">
+                                <input name="amount" type="number" class="form-control tabInput" id="tab">
+                                <input name="name" type="hidden" value="{{ establishment.name }}">
+                                <input name="img" type="hidden" value="{{ establishment.img }}">
                                 <button type="submit" class="btn btn-primary float-right tabSubmit" >Submit</button>
                             </div>
                         </form>

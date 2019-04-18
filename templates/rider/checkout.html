@@ -2,30 +2,52 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-    <nav class="navbar sticky-top navbar-light bg-light">
-        <a class="navbar-profile" href="#">Profile</a>
-        <a class="navbar-signout" href="../logout">Sign Out</a>
-    </nav>
-    <div class="row">
-        <div class="col-12 text-center" style="margin-bottom: 20px">
-            <h2>Confirm Order</h2>
+    <div class="container">
+        <nav class="navbar sticky-top navbar-light bg-light">
+            <a class="navbar-profile" href="#">Profile</a>
+            <a class="navbar-signout" href="../logout">Sign Out</a>
+        </nav>
+        <div class="accordion">
+            <div class="card checkoutCard">
+                <div class="card-header">
+                    <div class="card-columns">
+                        <div class="row">
+                            <div class="col-12 mx-auto text-center">
+                                <h2>Confirm Order</h2>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mx-auto text-center">
+                                <img src="{{ img }}" alt="" class="checkoutImg">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mx-auto text-center">
+                                <h4 class="checkoutEstablishment">{{ name }}</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mx-auto text-center">
+                                <span>Total: ${{ amount }}</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mx-auto text-center checkoutForm">
+                                {{ form.render }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="col-12 text-center">
-            <img src="http://lorempixel.com/150/150", alt="">
-        </div>
-
-        <div class="col-12 text-center" style="margin-bottom: 50px">
-            <h4>Establishment Name</h4>
-        </div>
-
-        <div class="col-12 text-center">
-            <span style="margin-right: 15px">Min Tab: {{ amount }}</span>
-            {{ form.render }}
-{#            <button class="btn btn-primary" style="margin-left: 15px" onclick="location.href='../confirm'">Call Ride</button>#}
-        </div>
     </div>
-
-</div>
 {% endblock %}
