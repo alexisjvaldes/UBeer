@@ -1,8 +1,41 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, render_to_response
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login as login_user, logout
-from UBeer.models import Trips, Establishments, Riders
+from UBeer.models import Trips
+from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from paypal.standard.forms import PayPalPaymentsForm
 
+@csrf_exempt
+def payment_done(request):
+    # What to do after a successful payment
+    return render(request, 'rider/confirm.html', {'message': "Your order was successfully submitted"})
+
+
+@csrf_exempt
+def payment_canceled(request):
+    # What to do after a unsuccessful payment
+    return render(request, 'rider/confirm.html', {'message': "There was an error, please retry or try later"})
+
+def payment_process(request):
+    # Host of the web page, need if we want to save transactions on DB
+    HOST = "6c4d5445.ngrok.io"
+    args = {}
+    # What you want the button to do.
+    paypal_dict = {
+        "business": "false.namebad-facilitator@gmail.com",
+        # The total amount to charge the user
+        "amount": "10.00",
+        # Name of the product, this will appear on the invoice
+        "item_name": "name of the item",
+        "notify_url": 'http://{}{}'.format(HOST, reverse('paypal-ipn')),
+        "return": 'http://{}{}'.format(HOST, reverse('done')),
+        "cancel_return": 'http://{}{}'.format(HOST, reverse('canceled')),
+    }
+    # Create the instance.
+    form = PayPalPaymentsForm(initial=paypal_dict)
+    args['form'] = form
+    return render_to_response("payment/payment.html", args)
 
 def login(request):
     context = {
@@ -96,32 +129,38 @@ def rider_home(request):
         ],
     }
 
-    user = request.user
+    if request.method == 'POST':
+        user = request.user
+        amount = request.POST.get('amount','')
+        if not user.is_authenticated:
+            return HttpResponseRedirect('/login')
+        HOST = "http://b1c9f666.ngrok.io"
+        args = {}
+        # What you want the button to do.
+        paypal_dict = {
+            "business": "false.namebad-facilitator@gmail.com",
+            # The total amount to charge the user
+            "amount": amount,
+            # Name of the product, this will appear on the invoice
+            "item_name": "tab",
+            "notify_url": 'http://{}{}'.format(HOST, reverse('paypal-ipn')),
+            "return": HOST + "/payment/done/",
+            "cancel_return": 'http://{}{}'.format(HOST, reverse('canceled')),
+        }
+        # Create the instance.
+        form = PayPalPaymentsForm(initial=paypal_dict)
+        args['form'] = form
+        return render(request, "rider/checkout.html", {'amount': amount,'form': form})
 
-    if not user.is_authenticated:
-        return HttpResponseRedirect('/login')
-    elif user.groups.filter(name='establishment').exists():
-        return HttpResponseRedirect('/establishmentHome')
+    else:
+        user = request.user
 
-    return render(request, "rider/rider_home.html", context)
+        if not user.is_authenticated:
+            return HttpResponseRedirect('/login')
+        elif user.groups.filter(name='establishment').exists():
+            return HttpResponseRedirect('/establishmentHome')
 
-
-def checkout(request):
-    context = {
-        'data': {},
-        'errors': [],
-    }
-
-    # establishments = Establishments.objects.all()
-    # context['establishments'] = establishments
-
-    user = request.user
-
-    if not user.is_authenticated:
-        return HttpResponseRedirect('/login')
-
-    return render(request, "rider/checkout.html", context)
-
+        return render(request, "rider/rider_home.html", context)
 
 def confirm(request):
     context = {

@@ -16,14 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from UBeer import views
+from django.conf.urls import url, include
 
 urlpatterns = [
+    path('paypal/', include('paypal.standard.ipn.urls')),
+    path('payment/process/', views.payment_process, name='process'),
+    path('payment/done/', views.payment_done, name='done'),
+    path('payment/canceled/', views.payment_canceled, name='canceled'),
     path('login/', views.login),
     path('signup/', views.signup),
-    path('riderHome/', views.rider_home),
+    path('riderHome/', views.rider_home, name='riderHome'),
     path('establishmentHome/', views.establishment_home),
-    path('checkout/', views.checkout),
-    path('confirm/', views.confirm),
+    path('confirm/', views.confirm, name='confirm'),
     path('logout/', views.logout_view),
     path('admin/', admin.site.urls),
 ]

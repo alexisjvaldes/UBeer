@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'paypal.standard.ipn',
     'UBeer'
 ]
 
@@ -137,3 +138,8 @@ STATICFILES_FINDERS = [
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
+#django-paypal settings
+PAYPAL_TEST = True
+PAYPAL_WPP_USER = "???"
+PAYPAL_WPP_PASSWORD = "???"
+PAYPAL_WPP_SIGNATURE = "???"
