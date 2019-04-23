@@ -5173,7 +5173,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 
 .alert-info {
-  color: #0c5460;
+  color: #003f5b;
   background-color: #d1ecf1;
   border-color: #bee5eb;
 }
@@ -5558,19 +5558,19 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 
 .list-group-item-info {
-  color: #0c5460;
+  color: #003f5b;
   background-color: #bee5eb;
 }
 
 .list-group-item-info.list-group-item-action:hover, .list-group-item-info.list-group-item-action:focus {
-  color: #0c5460;
+  color: #003f5b;
   background-color: #abdde5;
 }
 
 .list-group-item-info.list-group-item-action.active {
   color: #fff;
-  background-color: #0c5460;
-  border-color: #0c5460;
+  background-color: #003f5b;
+  border-color: #003f5b;
 }
 
 .list-group-item-warning {

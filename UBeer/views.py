@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from paypal.standard.forms import PayPalPaymentsForm
 
+
 @csrf_exempt
 def payment_done(request):
     # What to do after a successful payment
@@ -16,6 +17,7 @@ def payment_done(request):
 def payment_canceled(request):
     # What to do after a unsuccessful payment
     return render(request, 'rider/confirm.html', {'message': "There was an error, please retry or try later"})
+
 
 def payment_process(request):
     # Host of the web page, need if we want to save transactions on DB
@@ -36,6 +38,7 @@ def payment_process(request):
     form = PayPalPaymentsForm(initial=paypal_dict)
     args['form'] = form
     return render_to_response("payment/payment.html", args)
+
 
 def login(request):
     context = {
@@ -83,12 +86,7 @@ def signup(request):
         first_name = data.get('firstName', '')
         last_name = data.get('lastName', '')
         password = data.get('password', '')
-        password_conf = data.get('confirmPassword', '')
         email = data.get('email', '')
-
-        if password != password_conf:
-            context['errors'].append("Passwords do not match. Please try again.")
-            return render(request, "signup.html", context)
 
         if User.objects.filter(username=username).exists():
             context['errors'].append("Username is already taken.")
@@ -110,48 +108,30 @@ def signup(request):
 
 
 def rider_home(request):
-    context = {
-        'data': {},
-        'errors': [],
-        'establishments': [
-            {'name': 'smoking dog pub', 'id': 'a', 'img': 'https://media-cdn.tripadvisor.com/media/photo-s/02/28/1e/1c/outside-bar.jpg', 'info': 'Cheap and great', 'rating': 8,
-             'rideTime': 5, 'minTab': 15},
-            {'name': 'bar italia', 'id': 'c', 'img': 'https://coolyourjetsiv.files.wordpress.com/2011/11/bar-italia-outside.jpg', 'info': 'Italian bar', 'rating': 11,
-             'rideTime': 12, 'minTab': 30},
-            {'name': 'the pumphouse', 'id': 'd', 'img': 'https://www.rumshopryan.com/wp-content/uploads/2011/02/Pumphouse-outside-night.jpg', 'info': 'Rustic bar and grille', 'rating': 2,
-             'rideTime': 3.5, 'minTab': 10},
-            {'name': 'manzoni', 'id': 'b', 'img': 'https://media-cdn.tripadvisor.com/media/photo-s/06/b3/b1/15/outside-view.jpg', 'info': 'Manzoni', 'rating': 4.5,
-             'rideTime': 9, 'minTab': 20},
-        ],
-    }
-
     if request.method == 'POST':
         user = request.user
-        amount = request.POST.get('amount','')
+        amount = request.POST.get('amount', '')
         name = request.POST.get('name', '')
         img = request.POST.get('img', '')
+
         if not user.is_authenticated:
             return HttpResponseRedirect('/login')
-        HOST = "http://b1c9f666.ngrok.io"
-        args = {}
-        # What you want the button to do.
+
+        host = "http://b1c9f666.ngrok.io"
         paypal_dict = {
             "business": "false.namebad-facilitator@gmail.com",
-            # The total amount to charge the user
             "amount": amount,
-            # Name of the product, this will appear on the invoice
             "item_name": "tab",
-            "notify_url": 'http://{}{}'.format(HOST, reverse('paypal-ipn')),
-            "return": HOST + "/payment/done/",
-            "cancel_return": 'http://{}{}'.format(HOST, reverse('canceled')),
+            "notify_url": 'http://{}{}'.format(host, reverse('paypal-ipn')),
+            "return": host + "/payment/done/",
+            "cancel_return": 'http://{}{}'.format(host, reverse('canceled')),
         }
-        # Create the instance.
+
         form = PayPalPaymentsForm(initial=paypal_dict)
-        args['form'] = form
-        return render(request, "rider/checkout.html", {'amount': amount,'form': form, 'name': name, 'img': img})
+
+        return render(request, "rider/checkout.html", {'amount': amount, 'form': form, 'name': name, 'img': img})
 
     else:
-        user = request.user
         user = request.user
         establishments = Establishments.objects.all()
 
@@ -160,7 +140,8 @@ def rider_home(request):
         elif user.groups.filter(name='establishment').exists():
             return HttpResponseRedirect('/establishmentHome')
 
-        return render(request, "rider/rider_home.html", context)
+        return render(request, "rider/rider_home.html", {'establishments': establishments})
+
 
 def confirm(request):
     context = {
