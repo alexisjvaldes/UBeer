@@ -16,8 +16,8 @@
 
     <div class="accordion" id="searchAccordion">
         {% for establishment in establishments %}
-            <div class="card" data-toggle data-parent="#searchAccordion" data-target="#{{ establishment.id }}" aria-expanded="false" aria-controls="{{ establishment.id }}">
-                <div class="card-header" id="{{ establishment.name }}" data-toggle="collapse" data-target="#{{ establishment.id }}">
+            <div class="card" data-toggle data-parent="#searchAccordion" data-target="#est_{{ establishment.id }}" aria-expanded="false" aria-controls="est_{{ establishment.id }}">
+                <div class="card-header" id="{{ establishment.name }}" data-toggle="collapse" data-target="#est_{{ establishment.id }}">
                     <div class="card-columns">
                             <div class="row">
                                 <div class="col-auto">
@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <div id="{{ establishment.id }}" class="collapse" aria-labelledby="{{ establishment.name }}"
+                <div id="est_{{ establishment.id }}" class="collapse" aria-labelledby="{{ establishment.name }}"
                      data-parent="#searchAccordion">
                     <div class="card card-body" aria-labelledby="{{ establishment.name }}">
                         <form method="post">
