@@ -77,27 +77,28 @@ def signup(request):
 
 
 def rider_home(request):
-    context = {
-        'data': {},
-        'errors': [],
-        'establishments': [
-            {'name': 'establishment 1', 'id': 'a', 'img': 'http://lorempixel.com/79/79', 'info': 'info 1', 'rating': 8,
-             'rideTime': 5, 'minTab': 15},
-            {'name': 'establishment 2', 'id': 'b', 'img': 'http://lorempixel.com/80/80', 'info': 'info 2', 'rating': 4.5,
-             'rideTime': 9, 'minTab': 20},
-            {'name': 'establishment 3', 'id': 'c', 'img': 'http://lorempixel.com/81/81', 'info': 'info 3', 'rating': 11,
-             'rideTime': 12, 'minTab': 30}
-        ],
-    }
+    # context = {
+    #     'data': {},
+    #     'errors': [],
+    #     'establishments': [
+    #         {'name': 'establishment 1', 'id': 'a', 'img': 'http://lorempixel.com/79/79', 'info': 'info 1', 'rating': 8,
+    #          'rideTime': 5, 'minTab': 15},
+    #         {'name': 'establishment 2', 'id': 'b', 'img': 'http://lorempixel.com/80/80', 'info': 'info 2', 'rating': 4.5,
+    #          'rideTime': 9, 'minTab': 20},
+    #         {'name': 'establishment 3', 'id': 'c', 'img': 'http://lorempixel.com/81/81', 'info': 'info 3', 'rating': 11,
+    #          'rideTime': 12, 'minTab': 30}
+    #     ],
+    #
 
     user = request.user
+    establishments = Establishments.objects.all()
 
     if not user.is_authenticated:
         return HttpResponseRedirect('/login')
     elif user.groups.filter(name='establishment').exists():
         return HttpResponseRedirect('/establishmentHome')
 
-    return render(request, "rider/rider_home.html", context)
+    return render(request, "rider/rider_home.html", {'establishments': establishments})
 
 
 def establishment_home(request):

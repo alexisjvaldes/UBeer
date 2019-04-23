@@ -6,11 +6,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="container login">
-        <div class="row">
-            <img class="mx-auto loginLogo" src="http://lorempixel.com/300/300" alt="">
-        </div>
+    <div id="backgroundImage"></div>
 
+    <div class="container login">
         <div class="row">
             <div class="col loginName">
                 Ubeer
@@ -20,24 +18,22 @@
         <div class="mx-auto loginFields">
             <form method = "post">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="loginUser" class="loginUserText">Username</label>
-                    <input type="text" class="form-control" id="loginUser" name="username">
+                <div class="row form-group">
+                    <input type="text" class="form-control" id="loginUser" name="username" placeholder="Username">
                 </div>
-                <div class="form-group">
-                    <label for="loginPassword" class="loginPasswordText">Password</label>
-                    <input type="password" class="form-control" id="loginPassword" name="password">
+                <div class="row form-group">
+                    <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password">
                 </div>
-                <div class="row loginButton">
-                    <div class="col">
-                    <button type="submit" class="btn btn-primary btn-lg loginButton">Log in</button>
-                    </div>
+                <div class="row">
+                    <button type="submit" class="loginButton">Log in</button>
                 </div>
             </form>
+
+            <div id="signupPrompt">
+                <span class="asdf" style="color:#ececec !important">Don't have an account yet?</span>
+                <span class="asdf"><a href="../signup" id="signupLink">Click here to signup!</a></span>
+            </div>
         </div>
 
-        <div class="row loginLink">
-            <div class="col">Link to <a href="../signup">Signup</a></div>
-        </div>
     </div>
 {% endblock %}

@@ -15,7 +15,7 @@
                     <div class="card-columns">
                             <div class="row">
                                 <div class="col-auto">
-                                    <img src="{{ establishment.img }}" alt="" class="riderHomeImg">
+                                    <img src="{{ establishment.image.url }}" alt="" class="riderHomeImg">
                                 </div>
                                 <div class="col-auto cardMiddle">
                                     {{ establishment.name }}<br>
@@ -23,8 +23,8 @@
                                     {{ establishment.info }}
                                 </div>
                                 <div class="col-auto cardRight">
-                                    {{ establishment.rideTime }}<br>
-                                    {{ establishment.minTab }}
+                                    {{ establishment.ride_time }}<br>
+                                    {{ establishment.minimum_tab }}
                                 </div>
                             </div>
                     </div>
