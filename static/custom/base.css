@@ -24,6 +24,7 @@ html, body {
 }
 
 .container {
+    position:absolute;
 }
 
 .login {
@@ -193,8 +194,14 @@ html, body {
 
 /*Large (desktops)*/
 @media screen and (min-width: 992px) {
+    .loginName {
+        color: white;
+    }
 }
 
 /*Extra Large (large desktops*/
 @media screen and (min-width: 1200px) {
+    .loginName {
+        color: rebeccapurple;
+    }
 }
