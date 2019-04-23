@@ -1,5 +1,5 @@
 body {
-    background-color: lightblue;
+    background-color: #003f5b;
 }
 
 .login {
@@ -82,6 +82,27 @@ body {
     margin-top: 10px;
 }
 
+.checkoutImg {
+    height: 69vw;
+    width: 69vw;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.checkoutEstablishment {
+    margin-bottom: 0px;
+    /*text-transform: uppercase;*/
+    font-family: 'Major Mono Display', monospace;
+    font-weight: bold;
+}
+
+.checkoutForm {
+    margin-top: 20px;
+}
+
 .tabInput {
     width: 68%;
     display: inline;
@@ -118,6 +139,10 @@ body {
 .btn-primary {
     background-color: #0ad098;
     border-color: #0ad098;
+}
+
+.checkoutCard {
+    font-family: 'Raleway', sans-serif;
 }
 
 /*Small (landscape phones)*/

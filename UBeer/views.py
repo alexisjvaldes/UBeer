@@ -132,6 +132,8 @@ def rider_home(request):
     if request.method == 'POST':
         user = request.user
         amount = request.POST.get('amount','')
+        name = request.POST.get('name', '')
+        img = request.POST.get('img', '')
         if not user.is_authenticated:
             return HttpResponseRedirect('/login')
         HOST = "http://b1c9f666.ngrok.io"
@@ -150,7 +152,7 @@ def rider_home(request):
         # Create the instance.
         form = PayPalPaymentsForm(initial=paypal_dict)
         args['form'] = form
-        return render(request, "rider/checkout.html", {'amount': amount,'form': form})
+        return render(request, "rider/checkout.html", {'amount': amount,'form': form, 'name': name, 'img': img})
 
     else:
         user = request.user
