@@ -112,9 +112,33 @@ html, body {
 }
 
 .riderHomeImg {
-    max-width: 100%;
-    height: auto;
-    width: auto;
+    height: 28vw;
+    width: 28vw;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    margin-top: 10px;
+}
+
+.checkoutImg {
+    height: 69vw;
+    width: 69vw;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.checkoutEstablishment {
+    margin-bottom: 0px;
+    /*text-transform: uppercase;*/
+    font-family: 'Major Mono Display', monospace;
+    font-weight: bold;
+}
+
+.checkoutForm {
+    margin-top: 20px;
 }
 
 .tabInput {
@@ -125,6 +149,38 @@ html, body {
 .tabSubmit {
     margin-top: 7px;
     font-size: 17px;
+}
+
+.establishmentName {
+    font-family: 'Major Mono Display', monospace;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.card-body {
+    background-color: #e1e1e1;
+}
+
+.cardMiddle {
+    /*font-family: 'Lato', sans-serif;*/
+    font-family: 'Raleway', sans-serif;
+}
+
+.card-header {
+    background-color: white;
+}
+
+.riderContainer {
+    background-color: #003f5b;
+}
+
+.btn-primary {
+    background-color: #0ad098;
+    border-color: #0ad098;
+}
+
+.checkoutCard {
+    font-family: 'Raleway', sans-serif;
 }
 
 /*Small (landscape phones)*/
