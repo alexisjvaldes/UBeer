@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path
 from UBeer import views
 from django.conf.urls import url, include
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf import settings
 
 urlpatterns = [
     path('paypal/', include('paypal.standard.ipn.urls')),
@@ -31,3 +34,6 @@ urlpatterns = [
     path('logout/', views.logout_view),
     path('admin/', admin.site.urls),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

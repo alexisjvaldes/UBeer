@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, render_to_response
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login as login_user, logout
-from UBeer.models import Trips
+from UBeer.models import Trips, Riders, Establishments
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from paypal.standard.forms import PayPalPaymentsForm
@@ -74,7 +74,7 @@ def signup(request):
         'errors': [],
     }
 
-    Group .objects.get_or_create(name='rider')
+    Group.objects.get_or_create(name='rider')
     Group.objects.get_or_create(name='establishment')
 
     if request.method == 'POST':
@@ -85,7 +85,6 @@ def signup(request):
         password = data.get('password', '')
         password_conf = data.get('confirmPassword', '')
         email = data.get('email', '')
-        user_group = data.get('group', '')
 
         if password != password_conf:
             context['errors'].append("Passwords do not match. Please try again.")
@@ -101,12 +100,9 @@ def signup(request):
         user.email = email
         user.save()
 
-        if user_group == '1':
-            group = Group.objects.get(name='rider')
-            user.groups.add(group)
-        else:
-            group = Group.objects.get(name='establishment')
-            user.groups.add(group)
+        group = Group.objects.get(name='rider')
+        user.groups.add(group)
+        Riders.objects.create(user=user)
 
         return HttpResponseRedirect('/login')
 
@@ -156,6 +152,8 @@ def rider_home(request):
 
     else:
         user = request.user
+        user = request.user
+        establishments = Establishments.objects.all()
 
         if not user.is_authenticated:
             return HttpResponseRedirect('/login')
